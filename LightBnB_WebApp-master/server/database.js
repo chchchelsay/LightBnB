@@ -22,18 +22,23 @@ const users = require('./json/users.json');
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function(email) {
-  let user;
-  for (const userId in users) {
-    user = users[userId];
-    if (user.email.toLowerCase() === email.toLowerCase()) {
-      break;
-    } else {
-      user = null;
-    }
-  }
-  return Promise.resolve(user);
+  const theQuery = 'Select * From users WHERE users.email = $1;'
+  return pool
+    .query(theQuery, [email])
+    .then((result) => {
+      console.log(result.rows);
+      if (result.rows) {
+        return result.rows[0];
+      } else {
+        return null;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+    })
 }
 exports.getUserWithEmail = getUserWithEmail;
+
 
 /**
  * Get a single user from the database given their id.
@@ -41,7 +46,20 @@ exports.getUserWithEmail = getUserWithEmail;
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function(id) {
-  return Promise.resolve(users[id]);
+  const theQuery = 'Select * From users WHERE users.id = $1;'
+  return pool
+    .query(theQuery, [id])
+    .then((result) => {
+      console.log(result.rows);
+      if (result.rows) {
+        return result.rows[0];
+      } else {
+        return null;
+      }
+    })
+    .catch((err) => {
+      console.log(err.message);
+    })
 }
 exports.getUserWithId = getUserWithId;
 
@@ -52,10 +70,16 @@ exports.getUserWithId = getUserWithId;
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser =  function(user) {
-  const userId = Object.keys(users).length + 1;
-  user.id = userId;
-  users[userId] = user;
-  return Promise.resolve(user);
+  const theQuery = 'INSERT INTO users (name, email, password) Values ($1, $2, $3) RETURNING *;'
+
+  return pool
+    .query(theQuery, [user.name, user.email, user.password])
+    .then(result => {
+      return result.rows[0];
+    })
+    .catch(err => {
+      console.log(err.message)
+    })
 }
 exports.addUser = addUser;
 
@@ -106,3 +130,40 @@ const addProperty = function(property) {
   return Promise.resolve(property);
 }
 exports.addProperty = addProperty;
+
+
+
+//---------getUserWithEmail previous function
+/*
+let user;
+  for (const userId in users) {
+    user = users[userId];
+    if (user.email.toLowerCase() === email.toLowerCase()) {
+      break;
+    } else {
+      user = null;
+    }
+  }
+  return Promise.resolve(user);
+*/
+
+//----------getUserWithId previous function
+//return Promise.resolve(users[id]);
+
+
+//----------addUser previous function
+
+/* 
+const userId = Object.keys(users).length + 1;
+user.id = userId;
+users[userId] = user;
+return Promise.resolve(user);
+*/
+
+//----------this is to test if new user actually added at sign-up
+
+/*
+SELECT id, name, email, password
+FROM users
+WHERE email = 'chelseakristina@live.com';
+*/
