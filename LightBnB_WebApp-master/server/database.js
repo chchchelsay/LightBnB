@@ -22,11 +22,11 @@ const users = require('./json/users.json');
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithEmail = function(email) {
-  const theQuery = 'Select * From users WHERE users.email = $1;'
+  const emailQuery = 'Select * From users WHERE users.email = $1;'
   return pool
-    .query(theQuery, [email])
+    .query(emailQuery, [email])
     .then((result) => {
-      console.log(result.rows);
+      //console.log(result.rows);
       if (result.rows) {
         return result.rows[0];
       } else {
@@ -46,11 +46,12 @@ exports.getUserWithEmail = getUserWithEmail;
  * @return {Promise<{}>} A promise to the user.
  */
 const getUserWithId = function(id) {
-  const theQuery = 'Select * From users WHERE users.id = $1;'
+
+  const idQuery = 'Select * From users WHERE users.id = $1;'
   return pool
-    .query(theQuery, [id])
+    .query(idQuery, [id])
     .then((result) => {
-      console.log(result.rows);
+      //console.log(result.rows);
       if (result.rows) {
         return result.rows[0];
       } else {
@@ -70,10 +71,10 @@ exports.getUserWithId = getUserWithId;
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser =  function(user) {
-  const theQuery = 'INSERT INTO users (name, email, password) Values ($1, $2, $3) RETURNING *;'
+  const addUserQuery = 'INSERT INTO users (name, email, password) Values ($1, $2, $3) RETURNING *;'
 
   return pool
-    .query(theQuery, [user.name, user.email, user.password])
+    .query(addUserQuery, [user.name, user.email, user.password])
     .then(result => {
       return result.rows[0];
     })
@@ -91,7 +92,15 @@ exports.addUser = addUser;
  * @return {Promise<[{}]>} A promise to the reservations.
  */
 const getAllReservations = function(guest_id, limit = 10) {
-  return getAllProperties(null, 2);
+  const allMyResQuery = 'SELECT reservations.*, properties.* FROM reservations JOIN properties ON reservations.property_id = properties.id JOIN property_reviews ON properties.id = property_reviews.property_id WHERE reservations.guest_id = $1 GROUP BY properties.id, reservations.id ORDER BY reservations.start_date LIMIT $2;'
+  return pool
+    .query(allMyResQuery, [guest_id, limit])
+    .then(result => {
+      return result.rows;
+    })
+    .catch(err => {
+      console.log(err.message);
+    })
 }
 exports.getAllReservations = getAllReservations;
 
@@ -107,7 +116,7 @@ const getAllProperties = (options, limit = 10) => {
   return pool
     .query(`SELECT * FROM properties LIMIT $1`, [limit])
     .then((result) => {
-      console.log(result.rows);
+      //console.log(result.rows);
       return result.rows;
     })
     .catch((err) => {
@@ -166,4 +175,10 @@ return Promise.resolve(user);
 SELECT id, name, email, password
 FROM users
 WHERE email = 'chelseakristina@live.com';
+*/
+
+//--------getAllReservations prev fn - just returned two random stock listings
+/* const getAllReservations = function(guest_id, limit = 10) {
+  return getAllProperties(null, 2);
+}
 */
