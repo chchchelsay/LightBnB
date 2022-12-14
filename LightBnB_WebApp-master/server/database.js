@@ -26,7 +26,7 @@ const getUserWithEmail = function(email) {
   return pool
     .query(emailQuery, [email])
     .then((result) => {
-      //console.log(result.rows);
+      console.log(result.rows);
       if (result.rows) {
         return result.rows[0];
       } else {
@@ -51,7 +51,7 @@ const getUserWithId = function(id) {
   return pool
     .query(idQuery, [id])
     .then((result) => {
-      //console.log(result.rows);
+      console.log(result.rows);
       if (result.rows) {
         return result.rows[0];
       } else {
@@ -116,7 +116,7 @@ const getAllProperties = (options, limit = 10) => {
   return pool
     .query(`SELECT * FROM properties LIMIT $1`, [limit])
     .then((result) => {
-      //console.log(result.rows);
+      console.log(result.rows);
       return result.rows;
     })
     .catch((err) => {
