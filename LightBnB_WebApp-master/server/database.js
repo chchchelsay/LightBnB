@@ -7,15 +7,6 @@ const pool = new Pool({
   database: 'lightbnb'
 });
 
-/* the following assumes that you named your connection variable `pool`
-pool.query(`SELECT title FROM properties LIMIT 10;`).then(response => {console.log(response)})
-*/
-
-const properties = require('./json/properties.json');
-const users = require('./json/users.json');
-
-/// Users
-
 /**
  * Get a single user from the database given their email.
  * @param {String} email The email of the user.
@@ -26,7 +17,6 @@ const getUserWithEmail = function(email) {
   return pool
     .query(emailQuery, [email])
     .then((res) => {
-      console.log(res.rows);
       if (res.rows) {
         return res.rows[0];
       } else {
@@ -51,7 +41,6 @@ const getUserWithId = function(id) {
   return pool
     .query(idQuery, [id])
     .then((res) => {
-      //console.log(res.rows);
       if (res.rows) {
         return res.rows[0];
       } else {
@@ -71,11 +60,11 @@ exports.getUserWithId = getUserWithId;
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser =  function(user) {
-  const addUserQuery = 'INSERT INTO users (name, email, password) Values ($1, $2, $3) RETURNING *;';
+  const addUserQuery = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *;';
 
   return pool
     .query(addUserQuery, [user.name, user.email, user.password])
-    .then(res => {
+    .then((res) => {
       return res.rows[0];
     })
     .catch(err => {
@@ -92,10 +81,10 @@ exports.addUser = addUser;
  * @return {Promise<[{}]>} A promise to the reservations.
  */
 const getAllReservations = function(guest_id, limit = 10) {
-  const allMyResQuery = 'SELECT reservations.*, properties.* FROM reservations JOIN properties ON reservations.property_id = properties.id JOIN property_reviews ON properties.id = property_reviews.property_id WHERE reservations.guest_id = $1 GROUP BY properties.id, reservations.id ORDER BY reservations.start_date LIMIT $2;';
+  const allResQuery = 'SELECT reservations.*, properties.* FROM reservations JOIN properties ON reservations.property_id = properties.id JOIN property_reviews ON properties.id = property_reviews.property_id WHERE reservations.guest_id = $1 GROUP BY properties.id, reservations.id ORDER BY reservations.start_date LIMIT $2;';
   return pool
-    .query(allMyResQuery, [guest_id, limit])
-    .then(res => {
+    .query(allResQuery, [guest_id, limit])
+    .then((res) => {
       return res.rows;
     })
     .catch(err => {
@@ -171,9 +160,19 @@ exports.getAllProperties = getAllProperties;
  * @return {Promise<{}>} A promise to the property.
  */
 const addProperty = function(property) {
-  const propertyId = Object.keys(properties).length + 1;
-  property.id = propertyId;
-  properties[propertyId] = property;
-  return Promise.resolve(property);
-};
+  const values = [property.owner_id, property.title, property.description, property.thumbnail_photo_url, property.cover_photo_url, property.cost_per_night, property.street, property.city, property.province, property.post_code, property.country, property.parking_spaces, property.number_of_bathrooms, property.number_of_bedrooms];
+  const addQuery = `
+    INSERT INTO properties (owner_id, title, description, thumbnail_photo_url, cover_photo_url, cost_per_night, street, city, province, post_code, country, parking_spaces, number_of_bathrooms, number_of_bedrooms)
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+    RETURNING *;
+`;
+  return pool
+    .query(addQuery, values)
+    .then((res) => {
+      return res.rows[0];
+    })
+    .catch(err => {
+      console.log(err.message);
+    })
+}
 exports.addProperty = addProperty;
