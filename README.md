@@ -36,6 +36,7 @@ __CREATE DATABASE__ in psql
 
 
 *> CREATE DATABASE lightbnb;*
+
 *> \c lightbnb*
 
 __CREATE TABLES__
