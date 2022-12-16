@@ -1,43 +1,78 @@
 # LightBnB
 
-## Project Structure
+LightBnB is a project I created during my time at Lighthouse Labs. 
 
-```
-├── public
-│   ├── index.html
-│   ├── javascript
-│   │   ├── components 
-│   │   │   ├── header.js
-│   │   │   ├── login_form.js
-│   │   │   ├── new_property_form.js
-│   │   │   ├── property_listing.js
-│   │   │   ├── property_listings.js
-│   │   │   ├── search_form.js
-│   │   │   └── signup_form.js
-│   │   ├── index.js
-│   │   ├── libraries
-│   │   ├── network.js
-│   │   └── views_manager.js
-│   └── styles
-├── sass
-└── server
-  ├── apiRoutes.js
-  ├── database.js
-  ├── json
-  ├── server.js
-  └── userRoutes.js
-```
+It is a clone of the vacation rental plaform Airbnb where I gained experience using PostgreSQL and relational database systems to access and return property and user data.
 
-* `public` contains all of the HTML, CSS, and client side JavaScript. 
-  * `index.html` is the entry point to the application. It's the only html page because this is a single page application.
-  * `javascript` contains all of the client side javascript files.
-    * `index.js` starts up the application by rendering the listings.
-    * `network.js` manages all ajax requests to the server.
-    * `views_manager.js` manages which components appear on screen.
-    * `components` contains all of the individual html components. They are all created using jQuery.
-* `sass` contains all of the sass files. 
-* `server` contains all of the server side and database code.
-  * `server.js` is the entry point to the application. This connects the routes to the database.
-  * `apiRoutes.js` and `userRoutes.js` are responsible for any HTTP requests to `/users/something` or `/api/something`. 
-  * `json` is a directory that contains a bunch of dummy data in `.json` files.
-  * `database.js` is responsible for all queries to the database. It doesn't currently connect to any database, all it does is return data from `.json` files.
+# Process and Outcomes
+
+CREATE Entity Relationship Diagram based on given data requirements and relations.
+
+CREATE tables (properties, users, reservations, property_reviews) and learn about different data types.
+
+INSERT table values using fake data, and then given seed files.
+
+Write SELECT queries to run against database (eg. user login, properties by city, all reservations).
+
+IMPLEMENT Node Postgres (pg) to link server with database to show real data to users.
+
+Users can add listings, search for listings based on different criteria (min/max price, city etc), create an account and stay logged in, view their reservations.
+
+# Dependencies
+
+"bcrypt": "^3.0.6",
+"body-parser": "^1.19.0",
+"cookie-session": "^1.3.3",
+"express": "^4.17.1",
+"nodemon": "^1.19.1",
+"pg": "^8.8.0"
+
+# Installation
+
+Install all dependencies with **npm install**.
+
+Server runs at **http://localhost:3000/** 
+
+> cd LightBnb_Webapp-master
+> npm run local
+
+__CREATE DATABASE__ in psql
+> CREATE DATABASE lightbnb;
+> \c lightbnb
+
+__CREATE TABLES__ by running 
+> \i migrations/01_schema.sql;
+
+__SEED DATABASE__ by running
+> \i seeds/02_seeds.sql in psql;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
