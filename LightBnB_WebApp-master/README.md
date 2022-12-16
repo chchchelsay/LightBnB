@@ -46,6 +46,14 @@ __CREATE TABLES__ by running
 __SEED DATABASE__ by running
 > \i seeds/02_seeds.sql in psql;
 
+## Screenshots
+
+!["LightBnB Entity Relationship Diagram"](https://github.com/chchchelsay/LightBnB/blob/master/ERD_Lightbnb.png?raw=true)
+!["Homepage"](https://github.com/chchchelsay/LightBnB/blob/master/homepage_lightbnb.png?raw=true)
+!["User creates a new listing"](https://github.com/chchchelsay/LightBnB/blob/master/createlisting_lightbnb.png?raw=true)
+!["Searching for listing in database lightbnb"](https://github.com/chchchelsay/LightBnB/blob/master/findlisting.png?raw=true)
+!["New listing data exists in database"](https://github.com/chchchelsay/LightBnB/blob/master/foundlisting.png?raw=true)
+
 
 
 
