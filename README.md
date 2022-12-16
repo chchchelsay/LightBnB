@@ -6,11 +6,11 @@ It is a clone of the vacation rental platform Airbnb where I gained experience u
 
 # Process and Outcomes
 
-- CREATE Entity Relationship Diagram based on given data requirements and relations
-- CREATE tables (properties, users, reservations, property_reviews) and learn about different data types.
-- INSERT table values using fake data, and then given seed files.
-- Write SELECT queries to run against database (eg. user login, properties by city, all reservations).
-- IMPLEMENT Node Postgres (pg) to link server with database to show real data to users.
+- Create __Entity Relationship Diagram__ based on given data requirements and relations.
+- Create tables (__properties__, __users__, __reservations__, __property_reviews__).
+- Insert table values using given seed files.
+- Write SELECT queries to run against database (eg. __user login__, __properties by city__, __all reservations__).
+- Implement __Node Postgres__ *(pg)* to link server with database and show real data to users.
 
 Users can add listings, search for listings based on different criteria (min/max price, city etc), create an account and stay logged in, view their reservations.
 
@@ -46,7 +46,7 @@ __CREATE TABLES__
 
 __SEED DATABASE__ 
 
-- *> \i seeds/02_seeds.sql in psql;*
+- *> \i seeds/02_seeds.sql;*
 
 ## Screenshots
 
@@ -56,7 +56,9 @@ Homepage - user logged in
 !["Homepage"](https://github.com/chchchelsay/LightBnB/blob/master/homepage_lightbnb.png?raw=true)
 Create a new listing
 !["User creates a new listing"](https://github.com/chchchelsay/LightBnB/blob/master/createlisting_lightbnb.png?raw=true)
+Query new listing in database
 !["Searching for listing in database lightbnb"](https://github.com/chchchelsay/LightBnB/blob/master/findlisting.png?raw=true)
+New listing exists in database
 !["New listing data exists in database"](https://github.com/chchchelsay/LightBnB/blob/master/foundlisting.png?raw=true)
 
 
