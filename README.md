@@ -2,7 +2,7 @@
 
 LightBnB is a project I created during my time at Lighthouse Labs. 
 
-It is a clone of the vacation rental plaform Airbnb where I gained experience using PostgreSQL and relational database systems to access and return property and user data.
+It is a clone of the vacation rental platform Airbnb where I gained experience using PostgreSQL and relational database systems to access and return property and user data.
 
 # Process and Outcomes
 
