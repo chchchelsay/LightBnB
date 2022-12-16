@@ -33,13 +33,19 @@ Server runs at **http://localhost:3000/**
 *> npm run local*
 
 __CREATE DATABASE__ in psql
+
+
 *> CREATE DATABASE lightbnb;*
 *> \c lightbnb*
 
 __CREATE TABLES__
+
+
 *> \i migrations/01_schema.sql;*
 
 __SEED DATABASE__ 
+
+
 *> \i seeds/02_seeds.sql in psql;*
 
 ## Screenshots
