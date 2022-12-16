@@ -6,11 +6,11 @@ It is a clone of the vacation rental plaform Airbnb where I gained experience us
 
 # Process and Outcomes
 
-⊛ CREATE Entity Relationship Diagram based on given data requirements and relations
-⊛ CREATE tables (properties, users, reservations, property_reviews) and learn about different data types.
-⊛ INSERT table values using fake data, and then given seed files.
-⊛ Write SELECT queries to run against database (eg. user login, properties by city, all reservations).
-⊛ IMPLEMENT Node Postgres (pg) to link server with database to show real data to users.
+- CREATE Entity Relationship Diagram based on given data requirements and relations
+- CREATE tables (properties, users, reservations, property_reviews) and learn about different data types.
+- INSERT table values using fake data, and then given seed files.
+- Write SELECT queries to run against database (eg. user login, properties by city, all reservations).
+- IMPLEMENT Node Postgres (pg) to link server with database to show real data to users.
 
 Users can add listings, search for listings based on different criteria (min/max price, city etc), create an account and stay logged in, view their reservations.
 
@@ -29,25 +29,21 @@ Install all dependencies with **npm install**.
 
 Server runs at **http://localhost:3000/** 
 
-*> cd LightBnb_Webapp-master*
-*> npm run local*
+- *> cd LightBnb_Webapp-master*
+- *> npm run local*
 
 __CREATE DATABASE__ in psql
 
-
-*> CREATE DATABASE lightbnb;*
-
-*> \c lightbnb*
+- *> CREATE DATABASE lightbnb;*
+- *> \c lightbnb*
 
 __CREATE TABLES__
 
-
-*> \i migrations/01_schema.sql;*
+- *> \i migrations/01_schema.sql;*
 
 __SEED DATABASE__ 
 
-
-*> \i seeds/02_seeds.sql in psql;*
+- *> \i seeds/02_seeds.sql in psql;*
 
 ## Screenshots
 
