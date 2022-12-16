@@ -24,6 +24,9 @@ Users can add listings, search for listings based on different criteria (min/max
 - pg: ^8.8.0
 
 # Installation
+Clone this project from github. 
+
+- *> git clone git@github.com:chchchelsay/LightBnB.git*
 
 Install all dependencies with **npm install**.
 
